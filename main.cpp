@@ -94,18 +94,27 @@ int main() {
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
   glGenBuffers(1, &EBO);
+  //make vao then put and vbo on an vao and put ebo in vbo in vao...
+  // VAO = VBO
+  // VBO has a EBO or VBO and EBO is stored in a VAO
 
   glBindVertexArray(VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  //WE tell opengl that we are currently selecting an VBO 
   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), &Vertices, GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  //WE tell opengl that we are currently selecting an EBO
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), &Indices, GL_STATIC_DRAW);
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+  //the stride is how much items on an vertex... x, y, z,   r, g, b so 6 * sizeof(float)
+  //because it accepts it as size but in bytes!
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))); 
+  //the offset is how much bytes to go to the second attrubute ex... rgb is 3 * sizeof(float) because 3 is coordinate
+  //and we want to go to rgb so we multiply the coordinate(s) by 3 (xyz)
   glEnableVertexAttribArray(1);
 
 
