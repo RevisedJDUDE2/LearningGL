@@ -77,17 +77,20 @@ int main() {
   glDeleteShader(FragmentShader);
 
   float Vertices[] = {
-    //              COORDS              COLOR
-    /*VERTEX1*/    -0.5, -0.5, 0.0f,   1.0f, 0.0f, 0.0f,
-    /*VERTEX2*/     0.5, -0.5, 0.0f,   0.0f, 1.0f, 0.0f,
-    /*VERTEX3*/     0.5,  0.5, 0.0f,   0.0f, 0.0f, 1.0f,
-    /*VERTEX4*/    -0.5,  0.5, 0.0f,   1.0f, 1.0f, 0.0f
+    //                                COORDS              COLOR
+    /*VERTEX1 ALSO 0 index*/     -0.5, -0.5, 0.0f,   1.0f, 0.0f, 0.0f, 
+    /*VERTEX2 ALSO 1 index*/      0.5, -0.5, 0.0f,   0.0f, 1.0f, 0.0f,
+    /*VERTEX3 ALSO 2 index*/      0.5,  0.5, 0.0f,   0.0f, 0.0f, 1.0f,
+    /*VERTEX4* ALSO 3 index*/    -0.5,  0.5, 0.0f,   1.0f, 1.0f, 0.0f
   };
 
   unsigned int Indices[] = {
     0, 1, 2,
     0, 2, 3
   };
+  //TELLING opengl which vertices / vec coords to render again
+  // so.. 0 index, 1 index, etc
+  //but we have and 4 or 3 index which is the new point so we add 0, 2, 3 thus a rectangle / quad!
 
   GLuint VBO, VAO, EBO;
 
@@ -130,7 +133,6 @@ int main() {
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 8, GL_UNSIGNED_INT, Indices);
     //glDrawArrays(GL_TRIANGLES, 0, 3);
-    //ok!
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
