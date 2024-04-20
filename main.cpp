@@ -102,7 +102,7 @@ int main() {
     glUseProgram(Program);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glDrawElements(GL_TRIANGLES, 8, GL_UNSIGNED_INT, Indices);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, Indices);
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
