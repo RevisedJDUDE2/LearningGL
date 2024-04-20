@@ -77,6 +77,7 @@ int main() {
   glViewport(0, 0, 800, 600);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
     glUseProgram(Prg);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
