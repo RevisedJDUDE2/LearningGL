@@ -7,3 +7,17 @@ void ShaderError(GLuint Shader, const char* ShaderType) {
     std::cout << ShaderType << ": Failed to compile: \n" << mshdrInfLog << "\n";
   }
 }
+
+std::string Shader::ReadShaderFile(const char * filename) {
+  std::ifstream file(filename);
+  if (file.is_open()) {
+    std::stringstream shaderStream;
+    shaderStream << file.rdbuf();
+    file.close();
+    return shaderStream.str();
+  } else {
+    std::cout << "Failed to open file: " << filename << " \n";
+    return "";
+  }
+  return std::string();
+}

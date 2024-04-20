@@ -11,7 +11,21 @@ int shdr;
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>;
 
 void ShaderError(GLuint Shader, const char* ShaderType);
+
+class Shader {
+private:
+  GLuint mVertexShader;
+  GLuint mFragmentShader;
+  GLuint mShaderProgram;
+  const char* mVertexShdrSource;
+  const char* mFragShdrSource;
+public:
+  std::string ReadShaderFile(const char * filename);
+  GLuint LoadProgram();
+};
 
 #endif
