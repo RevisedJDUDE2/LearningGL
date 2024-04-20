@@ -142,6 +142,10 @@
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Debug\shader.frag" />
+    <None Include="Debug\shader.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
