@@ -19,5 +19,35 @@ std::string Shader::ReadShaderFile(const char * filename) {
     std::cout << "Failed to open file: " << filename << " \n";
     return "";
   }
-  return std::string();
+}
+
+GLuint Shader::CreateShader(GLenum type, const char * source) {
+  GLuint shader = glCreateShader(type);
+  glShaderSource(shader, 1, &source, NULL);
+  glCompileShader(shader);
+
+  this->mShdrID = shader;
+  return shader;
+}
+
+GLuint Shader::CreateProgram() {
+  GLuint prog = glCreateProgram();
+  this->mShdrID = prog;
+  return prog;
+}
+
+void Shader::AttachProgram(GLuint ShdrID) {
+  glAttachShader(this->mShdrID, ShdrID);
+}
+
+void Shader::LinkProgram() {
+  glLinkProgram(this->mShdrID);
+}
+
+void Shader::UseProgram() {
+  glUseProgram(this->mShdrID);
+}
+
+GLuint Shader::GetID(void) const {
+  return this->mShdrID;
 }

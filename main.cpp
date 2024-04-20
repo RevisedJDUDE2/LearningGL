@@ -29,6 +29,14 @@ int main() {
     "   FragColor = vec4(ourColor, 1.0f);\n"
     "}\0";
 
+  Shader refVertex;
+  std::string vshSource = refVertex.ReadShaderFile("shader.vert");
+  const char* VertexshdrSource = vshSource.c_str();
+
+  Shader refFragment;
+  std::string fshSource = refFragment.ReadShaderFile("shader.frag");
+  const char* FragmentshdrSource = fshSource.c_str();
+
   if (!glfwInit())
     return -1;
   GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", nullptr, nullptr);
@@ -41,29 +49,22 @@ int main() {
     glfwTerminate();
   }
 
-  GLuint VertexShader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(VertexShader, 1, &VertexShaderSource, NULL);
-  glCompileShader(VertexShader);
+  GLuint Vertex = refVertex.CreateShader(GL_VERTEX_SHADER, VertexshdrSource);
+  ShaderError(Vertex, "VertexShader");
+  GLuint Fragment = refFragment.CreateShader(GL_FRAGMENT_SHADER, FragmentshdrSource);
+  ShaderError(Fragment, "FragmentShader");
 
-  ShaderError(VertexShader, "VertexShader");
+  Shader Programm;
+  GLuint Prg = Programm.CreateProgram();
+  Programm.AttachProgram(refVertex.GetID());
+  Programm.AttachProgram(refFragment.GetID());
+  Programm.LinkProgram();
+  ShaderError(Prg, "Program");
+  Programm.UseProgram();
+  glDeleteProgram(Prg);
 
-  GLuint FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(FragmentShader, 1, &FragmentShaderSource, NULL);
-  glCompileShader(FragmentShader);
-
-  ShaderError(FragmentShader, "FragmentShader");
-
-  GLuint Program = glCreateProgram();
-  glAttachShader(Program, VertexShader);
-  glAttachShader(Program, FragmentShader);
-  glLinkProgram(Program);
-
-  ShaderError(Program, "ProgramShader");
-
-  glUseProgram(Program);
-
-  glDeleteShader(VertexShader);
-  glDeleteShader(FragmentShader);
+  glDeleteShader(Vertex);
+  glDeleteShader(Fragment);
 
   float Vertices[] = {
     //                                COORDS              COLOR
@@ -99,7 +100,7 @@ int main() {
   glfwSwapInterval(0);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(Program);
+    glUseProgram(Prg);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, Indices);
@@ -107,7 +108,7 @@ int main() {
     glfwPollEvents();
   }
   VAO.Unbind();
-  glDeleteProgram(Program);
+  glDeleteProgram(Prg);
   glfwTerminate();
   return 0;
 }

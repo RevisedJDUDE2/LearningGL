@@ -18,14 +18,15 @@ void ShaderError(GLuint Shader, const char* ShaderType);
 
 class Shader {
 private:
-  GLuint mVertexShader;
-  GLuint mFragmentShader;
-  GLuint mShaderProgram;
-  const char* mVertexShdrSource;
-  const char* mFragShdrSource;
+  GLuint mShdrID;
 public:
   std::string ReadShaderFile(const char * filename);
-  GLuint LoadProgram();
+  GLuint CreateShader(GLenum type, const char * source);
+  GLuint CreateProgram();
+  void AttachProgram(GLuint ShdrID);
+  void LinkProgram();
+  void UseProgram();
+  GLuint GetID(void) const;
 };
 
 #endif
