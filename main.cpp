@@ -75,13 +75,15 @@ int main() {
   VAO.Unbind();
 
   glViewport(0, 0, 800, 600);
-  glfwSwapInterval(0);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     glUseProgram(Prg);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, Indices);
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+      break;
+    }
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
