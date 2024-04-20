@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "VertexBuffer.h"
+#include "VertexArray.h"
 
 int main() {
 
@@ -92,20 +94,18 @@ int main() {
   // so.. 0 index, 1 index, etc
   //but we have and 4 or 3 index which is the new point so we add 0, 2, 3 thus a rectangle / quad!
 
-  GLuint VBO, VAO, EBO;
+  GLuint EBO;
 
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
+
+  VertexArray VAO;
   glGenBuffers(1, &EBO);
   //make vao then put and vbo on an vao and put ebo in vbo in vao...
   // VAO = VBO
   // VBO has a EBO or VBO and EBO is stored in a VAO
+  
+  VAO.Bind();
 
-  glBindVertexArray(VAO);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  //WE tell opengl that we are currently selecting an VBO 
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), &Vertices, GL_STATIC_DRAW);
+  VertexBuffer VBO(sizeof(Vertices), &Vertices);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
   //WE tell opengl that we are currently selecting an EBO
@@ -123,14 +123,15 @@ int main() {
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  VAO.Unbind();
 
   glViewport(0, 0, 800, 600);
   glfwSwapInterval(0);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     glUseProgram(Program);
-    glBindVertexArray(VAO);
+    VAO.Bind();
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, 8, GL_UNSIGNED_INT, Indices);
     //glDrawArrays(GL_TRIANGLES, 0, 3);
     glfwSwapBuffers(window);
