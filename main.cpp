@@ -5,6 +5,7 @@
 #include "VertexBuffer.h"
 #include "VertexArray.h"
 #include "ElementBuffer.h"
+#include "Shader.h"
 
 int main() {
 
@@ -40,39 +41,24 @@ int main() {
     glfwTerminate();
   }
 
-  int success;
-  char infoLog[912];
-
   GLuint VertexShader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(VertexShader, 1, &VertexShaderSource, NULL);
   glCompileShader(VertexShader);
 
-  glGetShaderiv(VertexShader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(VertexShader, 912, nullptr, infoLog);
-    std::cout << "ERROR::VERTEXSHADER : " << infoLog << std::endl;
-  }
+  ShaderError(VertexShader, "VertexShader");
 
   GLuint FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(FragmentShader, 1, &FragmentShaderSource, NULL);
   glCompileShader(FragmentShader);
 
-  glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(FragmentShader, 912, nullptr, infoLog);
-    std::cout << "ERROR::FRAGMENTSHADER : " << infoLog << std::endl;
-  }
+  ShaderError(FragmentShader, "FragmentShader");
 
   GLuint Program = glCreateProgram();
   glAttachShader(Program, VertexShader);
   glAttachShader(Program, FragmentShader);
   glLinkProgram(Program);
 
-  glGetShaderiv(Program, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(Program, 912, nullptr, infoLog);
-    std::cout << "ERROR::SHADERPROGRAM : " << infoLog << std::endl;
-  }
+  ShaderError(Program, "ProgramShader");
 
   glUseProgram(Program);
 
@@ -91,27 +77,17 @@ int main() {
     0, 1, 2,
     0, 2, 3
   };
-  //TELLING opengl which vertices / vec coords to render again
-  // so.. 0 index, 1 index, etc
-  //but we have and 4 or 3 index which is the new point so we add 0, 2, 3 thus a rectangle / quad!
 
   VertexArray VAO;
   ElementBuffer EBO;
   EBO.GenEBO();
-  //make vao then put and vbo on an vao and put ebo in vbo in vao...
-  // VAO = VBO
-  // VBO has a EBO or VBO and EBO is stored in a VAO
   VAO.Bind();
   VertexBuffer VBO(sizeof(Vertices), &Vertices);
   EBO.Setup(sizeof(Indices), Indices);
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-  //the stride is how much items on an vertex... x, y, z,   r, g, b so 6 * sizeof(float)
-  //because it accepts it as size but in bytes!
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))); 
-  //the offset is how much bytes to go to the second attrubute ex... rgb is 3 * sizeof(float) because 3 is coordinate
-  //and we want to go to rgb so we multiply the coordinate(s) by 3 (xyz)
   glEnableVertexAttribArray(1);
 
 
@@ -127,10 +103,11 @@ int main() {
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, 8, GL_UNSIGNED_INT, Indices);
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
+  VAO.Unbind();
+  glDeleteProgram(Program);
   glfwTerminate();
   return 0;
 }
