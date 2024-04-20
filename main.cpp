@@ -1,4 +1,3 @@
-#undef _CONSOLE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -9,16 +8,17 @@
 
 int main() {
   Shader refVertex;
-  std::string vshSource = refVertex.ReadShaderFile("shader.vert");
+  std::string vshSource = refVertex.ReadShaderFile("./shader.vert");
   const char* VertexshdrSource = vshSource.c_str();
 
   Shader refFragment;
-  std::string fshSource = refFragment.ReadShaderFile("shader.frag");
+  std::string fshSource = refFragment.ReadShaderFile("./shader.frag");
   const char* FragmentshdrSource = fshSource.c_str();
 
   if (!glfwInit())
     return -1;
-  GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", nullptr, nullptr);
+  GLFWmonitor* ccMonitor = glfwGetPrimaryMonitor();
+  GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", ccMonitor, nullptr);
   if (!window) {
     std::cout << "Window Failed!" << std::endl;
     return -1;
@@ -69,7 +69,6 @@ int main() {
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))); 
   glEnableVertexAttribArray(1);
-
 
   EBO.Unbind();
   VBO.Unbind();
