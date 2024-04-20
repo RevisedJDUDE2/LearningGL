@@ -4,6 +4,7 @@
 #include <iostream>
 #include "VertexBuffer.h"
 #include "VertexArray.h"
+#include "ElementBuffer.h"
 
 int main() {
 
@@ -94,22 +95,15 @@ int main() {
   // so.. 0 index, 1 index, etc
   //but we have and 4 or 3 index which is the new point so we add 0, 2, 3 thus a rectangle / quad!
 
-  GLuint EBO;
-
-
   VertexArray VAO;
-  glGenBuffers(1, &EBO);
+  ElementBuffer EBO;
+  EBO.GenEBO();
   //make vao then put and vbo on an vao and put ebo in vbo in vao...
   // VAO = VBO
   // VBO has a EBO or VBO and EBO is stored in a VAO
-  
   VAO.Bind();
-
   VertexBuffer VBO(sizeof(Vertices), &Vertices);
-
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  //WE tell opengl that we are currently selecting an EBO
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), &Indices, GL_STATIC_DRAW);
+  EBO.Setup(sizeof(Indices), Indices);
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
   //the stride is how much items on an vertex... x, y, z,   r, g, b so 6 * sizeof(float)
@@ -121,8 +115,8 @@ int main() {
   glEnableVertexAttribArray(1);
 
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  EBO.Unbind();
+  VBO.Unbind();
   VAO.Unbind();
 
   glViewport(0, 0, 800, 600);
