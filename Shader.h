@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-#ifndef READ_SUCCESS
+#ifndef SHADER_READONLY //idk why i did this
 #include <vector>
 static int mshdrCompStatus;
 static char mshdrInfLog[910];
