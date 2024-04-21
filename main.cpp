@@ -1,6 +1,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
+
+//My Headers
+#include "CoreAPI.h"
 #include "VertexBuffer.h"
 #include "VertexArray.h"
 #include "ElementBuffer.h"
@@ -9,22 +13,21 @@
 
 int main() {
   Shader refVertex;
-  std::string vshSource = refVertex.ReadShaderFile("./shader.vert");
-  const char* VertexshdrSource = vshSource.c_str();
+  PUSH_SHADER_SOURCE(refVertex, "./shader.vert");
+  const char* VertexshdrSource = ShaderSourceArray[0].c_str();
 
   Shader refFragment;
-  std::string fshSource = refFragment.ReadShaderFile("./shader.frag");
-  const char* FragmentshdrSource = fshSource.c_str();
+  PUSH_SHADER_SOURCE(refFragment, "./shader.frag");
+  const char* FragmentshdrSource = ShaderSourceArray[1].c_str();
 
-  if (!glfwInit())
-    return -1;
+  InitGLFW();
+
   GLFWmonitor* ccMonitor = nullptr;
   //GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", ccMonitor, nullptr);
   Window::GetInstance().CreateWindow();
   glfwMakeContextCurrent(Window::GetInstance().GetWindow());
-  if (glewInit() != GLEW_OK) {
-    glfwTerminate();
-  }
+
+  InitGLEW();
 
   GLuint Vertex = refVertex.CreateShader(GL_VERTEX_SHADER, VertexshdrSource);
   ShaderError(Vertex, "VertexShader");

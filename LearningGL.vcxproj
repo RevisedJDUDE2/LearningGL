@@ -138,6 +138,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoreAPI.h" />
     <ClInclude Include="ElementBuffer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="VertexArray.h" />
