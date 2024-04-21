@@ -17,7 +17,7 @@ int main() {
 
   if (!glfwInit())
     return -1;
-  GLFWmonitor* ccMonitor = glfwGetPrimaryMonitor();
+  GLFWmonitor* ccMonitor = nullptr;
   GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", ccMonitor, nullptr);
   if (!window) {
     std::cout << "Window Failed!" << std::endl;
