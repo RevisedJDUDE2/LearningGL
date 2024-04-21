@@ -21,12 +21,8 @@ int main() {
   const char* FragmentshdrSource = ShaderSourceArray[1].c_str();
 
   InitGLFW();
-
-  GLFWmonitor* ccMonitor = nullptr;
-  //GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", ccMonitor, nullptr);
   Window::GetInstance().CreateWindow();
   glfwMakeContextCurrent(Window::GetInstance().GetWindow());
-
   InitGLEW();
 
   GLuint Vertex = refVertex.CreateShader(GL_VERTEX_SHADER, VertexshdrSource);
