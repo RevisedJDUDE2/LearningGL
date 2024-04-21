@@ -1,6 +1,8 @@
 #include "Shader.h"
+#include <cstring>
 
 void ShaderError(GLuint Shader, const char* ShaderType) {
+  memset(mshdrInfLog, '\0', sizeof(mshdrInfLog)); //i forgot this crucial thing!
   glGetShaderiv(Shader, GL_COMPILE_STATUS, &mshdrCompStatus);
   if (!mshdrCompStatus) {
     glGetShaderInfoLog(Shader, 910, nullptr, mshdrInfLog);

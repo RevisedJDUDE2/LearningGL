@@ -1,4 +1,4 @@
-//#define SHADER_READONLY
+//#define SHADER_USE_FUNCTIONS
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -13,11 +13,11 @@
 #include "Window.h"
 
 int main() {
-  Shader refVertex;
+  Shader refVertex = {};
   PUSH_SHADER_SOURCE(refVertex, "./shader.vert");
   const char* VertexshdrSource = GET_SHADER_STRING(0);
 
-  Shader refFragment;
+  Shader refFragment = {};
   PUSH_SHADER_SOURCE(refFragment, "./shader.frag");
   const char* FragmentshdrSource = GET_SHADER_STRING(1);
 
@@ -73,6 +73,7 @@ int main() {
   VAO.Unbind();
 
   glViewport(0, 0, 800, 600);
+  glfwSwapInterval(0);
   while ( !glfwWindowShouldClose(Window::GetInstance().GetWindow()) ) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);

@@ -6,19 +6,10 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
-#ifndef SHADER_READONLY //idk why i did this
 #include <vector>
+
 static int mshdrCompStatus;
 static char mshdrInfLog[910];
-static std::vector<std::string> ShaderSourceArray;
-#define PUSH_SHADER_SOURCE(shaderInstance, name) ShaderSourceArray.push_back(shaderInstance.ReadShaderFile(name))
-#define GET_SHADER_STRING(index) ShaderSourceArray[index].c_str()
-#else
-int shdr;
-#endif
-
-void ShaderError(GLuint Shader, const char* ShaderType);
 
 class Shader {
 private:
@@ -32,5 +23,22 @@ public:
   void UseProgram();
   GLuint GetID(void) const;
 };
+
+#ifndef SHADER_USE_FUNCTIONS //idk why i did this
+static std::vector<std::string> ShaderSourceArray;
+#define PUSH_SHADER_SOURCE(shaderInstance, name) ShaderSourceArray.push_back(shaderInstance.ReadShaderFile(name))
+#define GET_SHADER_STRING(index) ShaderSourceArray[index].c_str()
+#else
+int shdr;
+static std::vector<std::string> ShaderSourceArray; //min size of shader sources!
+void PUSH_SHADER_SOURCE(Shader Instance, const char* name) {
+  ShaderSourceArray.push_back(Instance.ReadShaderFile(name));
+}
+const char* GET_SHADER_STRING(int index) {
+  return ShaderSourceArray[index].c_str();
+}
+#endif
+
+void ShaderError(GLuint Shader, const char* ShaderType);
 
 #endif
