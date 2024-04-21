@@ -18,7 +18,7 @@ int main() {
 
   Shader refFragment;
   PUSH_SHADER_SOURCE(refFragment, "./shader.frag");
-  const char* FragmentshdrSource = ShaderSourceArray[1].c_str();
+  const char* FragmentshdrSource = GET_SHADER_STRING(1);
 
   InitGLFW();
   Window::GetInstance().CreateWindow();
