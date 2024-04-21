@@ -5,6 +5,7 @@
 #include "VertexArray.h"
 #include "ElementBuffer.h"
 #include "Shader.h"
+#include "Window.h"
 
 int main() {
   Shader refVertex;
@@ -18,12 +19,9 @@ int main() {
   if (!glfwInit())
     return -1;
   GLFWmonitor* ccMonitor = nullptr;
-  GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", ccMonitor, nullptr);
-  if (!window) {
-    std::cout << "Window Failed!" << std::endl;
-    return -1;
-  }
-  glfwMakeContextCurrent(window);
+  //GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL!", ccMonitor, nullptr);
+  Window::GetInstance().CreateWindow();
+  glfwMakeContextCurrent(Window::GetInstance().GetWindow());
   if (glewInit() != GLEW_OK) {
     glfwTerminate();
   }
@@ -75,17 +73,17 @@ int main() {
   VAO.Unbind();
 
   glViewport(0, 0, 800, 600);
-  while (!glfwWindowShouldClose(window)) {
+  while ( !glfwWindowShouldClose(Window::GetInstance().GetWindow()) ) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glUseProgram(Prg);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, Indices);
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    if (glfwGetKey( Window::GetInstance().GetWindow() , GLFW_KEY_ESCAPE) == GLFW_PRESS) {
       break;
     }
-    glfwSwapBuffers(window);
+    glfwSwapBuffers( Window::GetInstance().GetWindow() );
     glfwPollEvents();
   }
   VAO.Unbind();

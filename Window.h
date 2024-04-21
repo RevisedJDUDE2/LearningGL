@@ -2,16 +2,25 @@
 #define WINDOW_HPP
 
 #include <GL/glew.h>
-#include<GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
 
 class Window {
-protected:
-  Window(GLFWwindow* val) : val_(val) {};
-  static Window* window_;
-  GLFWwindow* val_;
 public:
-  Window(Window& other) = delete;
+  Window(const Window&) = delete;
 
+  static Window& GetInstance() {
+    static Window Instance;
+    return Instance;
+  }
+
+  void CreateWindow();
+
+  GLFWwindow* GetWindow();
+
+private:
+  Window() {};
+
+  GLFWwindow* mWindow;
 };
 
 #endif
