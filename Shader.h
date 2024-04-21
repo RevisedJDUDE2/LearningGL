@@ -13,6 +13,7 @@ static int mshdrCompStatus;
 static char mshdrInfLog[910];
 static std::vector<std::string> ShaderSourceArray;
 #define PUSH_SHADER_SOURCE(shaderInstance, name) ShaderSourceArray.push_back(shaderInstance.ReadShaderFile(name))
+#define GET_SHADER_STRING(index) ShaderSourceArray[index].c_str()
 #else
 int shdr;
 #endif

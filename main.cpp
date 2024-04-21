@@ -14,7 +14,7 @@
 int main() {
   Shader refVertex;
   PUSH_SHADER_SOURCE(refVertex, "./shader.vert");
-  const char* VertexshdrSource = ShaderSourceArray[0].c_str();
+  const char* VertexshdrSource = GET_SHADER_STRING(0);
 
   Shader refFragment;
   PUSH_SHADER_SOURCE(refFragment, "./shader.frag");
