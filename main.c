@@ -29,13 +29,13 @@ int main() {
   glBindVertexArray(VAO);
 
   Buffer_t VBO;
-  VBO.target = GL_VERTEX_ARRAY;
-  VBO.size = sizeof(Vertices);
-  VBO.data = &Vertices;
-  VBO.usage = GL_STATIC_DRAW;
+  Buffer_SetStruct(&VBO, 1, sizeof(Vertices), Vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+
+  Buffer_Init(&VBO);
+
   Buffer_CreateBuffer(&VBO);
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(Vertices), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
   Buffer_Unbind(&VBO);
