@@ -11,6 +11,11 @@ int main() {
     glfwTerminate();
     return -1;
   }
+
+  //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
   GLFWwindow* Window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
   glfwMakeContextCurrent(Window);
   if (glewInit() != GLEW_OK) {
@@ -19,6 +24,9 @@ int main() {
     return -1;
   }
 
+  const unsigned char* VERSION = glGetString(GL_VERSION);
+  printf("Version: %s\n", VERSION);
+
   float Vertices[9] = {
     -0.5f, -0.5f, 0.0f,
      0.0f, 0.5f, 0.0f,
@@ -26,12 +34,10 @@ int main() {
   };
   GLuint VAO;
   glGenVertexArrays(1, &VAO);
-  glBindVertexArray(VAO);
-
   Buffer_t VBO;
   Buffer_SetStruct(&VBO, 1, sizeof(Vertices), Vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-
   Buffer_Init(&VBO);
+  glBindVertexArray(VAO);
 
   Buffer_CreateBuffer(&VBO);
 
