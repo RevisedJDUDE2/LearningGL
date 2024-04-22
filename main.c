@@ -5,12 +5,6 @@
 #include <vector>
 
 //My Headers
-#include "CoreAPI.h"
-#include "VertexBuffer.h"
-#include "VertexArray.h"
-#include "ElementBuffer.h"
-#include "Shader.h"
-#include "Window.h"
 
 int main() {
   float Vertices[] = {
