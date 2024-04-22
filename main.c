@@ -3,9 +3,23 @@
 #include <stdio.h>
 
 int main() {
-  if (!glfwInit())
+  if (!glfwInit()) {
+    printf("Failed to initialize glfw");
     glfwTerminate();
-  if (glewInit() != GLEW_OK)
+    return -1;
+  }
+  GLFWwindow* Window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
+  glfwMakeContextCurrent(Window);
+  if (glewInit() != GLEW_OK) {
+    printf("Glew init failure");
     glfwTerminate();
+    return -1;
+  }
+  while (!glfwWindowShouldClose(Window)) {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwSwapBuffers(Window);
+    glfwPollEvents();
+  }
+  glfwTerminate();
   return 0;
 }
