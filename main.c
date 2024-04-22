@@ -1,8 +1,7 @@
 //#define SHADER_USE_FUNCTIONS
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
-#include <vector>
+#include <stdio.h>
 
 //My Headers
 
