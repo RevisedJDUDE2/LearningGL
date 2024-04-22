@@ -80,7 +80,7 @@ int main() {
     glUseProgram(Prg);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, Indices);
+    glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, Indices, 1);
     if (glfwGetKey( Window::GetInstance().GetWindow() , GLFW_KEY_ESCAPE) == GLFW_PRESS) {
       break;
     }
