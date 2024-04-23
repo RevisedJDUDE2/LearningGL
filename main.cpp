@@ -38,10 +38,13 @@ int main() {
   Programm.LinkProgram();
   ShaderError(Prg, "Program");
   Programm.UseProgram();
-  glDeleteProgram(Prg);
+  //glDeleteProgram(Prg);
+  Programm.DeleteProgram();
 
-  glDeleteShader(Vertex);
-  glDeleteShader(Fragment);
+  //glDeleteShader(Vertex);
+  refVertex.DeleteShader();
+  //glDeleteShader(Fragment);
+  refFragment.DeleteShader();
 
   float Vertices[] = {
     //                                COORDS              COLOR

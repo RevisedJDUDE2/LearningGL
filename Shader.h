@@ -22,6 +22,8 @@ public:
   void LinkProgram();
   void UseProgram();
   GLuint GetID(void) const;
+  void DeleteShader(void);
+  void DeleteProgram(void);
 };
 
 #ifndef SHADER_USE_FUNCTIONS //idk why i did this

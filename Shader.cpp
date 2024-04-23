@@ -53,3 +53,11 @@ void Shader::UseProgram() {
 GLuint Shader::GetID(void) const {
   return this->mShdrID;
 }
+
+void Shader::DeleteShader(void) {
+  glDeleteShader(this->mShdrID);
+}
+
+void Shader::DeleteProgram(void) {
+  glDeleteProgram(this->mShdrID);
+}
