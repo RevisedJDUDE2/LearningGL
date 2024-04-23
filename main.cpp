@@ -103,6 +103,7 @@ int main() {
   Programm.UseProgram();
   glUniform1f(tex0uni, 0);
 
+  glViewport(0, 0, 800, 600);
   while ( !glfwWindowShouldClose(Window::GetInstance().GetWindow()) ) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
