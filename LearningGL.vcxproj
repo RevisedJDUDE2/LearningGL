@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\Music\glew-2.2.0-win32\glew-2.2.0\include;C:\Users\User\Music\glfw-3.4.bin.WIN32\glfw-3.4.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\Music\glm-1.0.1-light;C:\Users\User\Music\glew-2.2.0-win32\glew-2.2.0\include;C:\Users\User\Music\glfw-3.4.bin.WIN32\glfw-3.4.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
