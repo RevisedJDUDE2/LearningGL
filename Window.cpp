@@ -2,7 +2,8 @@
 #include <iostream>
 
 void Window::CreateWindow() {
-  mWindow = glfwCreateWindow(800, 600, "OpenGL!", glfwGetPrimaryMonitor(), nullptr);
+  glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  mWindow = glfwCreateWindow(800, 600, "OpenGL!", nullptr, nullptr);
   if (!mWindow) {
     std::cout << "Window Creation Failed" << std::endl;
   }

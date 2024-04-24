@@ -108,6 +108,14 @@ int main() {
     2, 4, 0
   };
 
+  glm::vec3 cubepos[] = {
+    glm::vec3(0.0f, 0.0f, 0.0f),
+    glm::vec3(1.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(1.0f, -2.0f, 0.0f)
+  };
+
   VertexArray VAO;
   ElementBuffer EBO;
   EBO.GenEBO();
@@ -172,7 +180,6 @@ int main() {
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
     glm::mat4 projection = glm::mat4(1.0f);
-    model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.0f));
     if (glfwGetKey(Window::GetInstance().GetWindow(), GLFW_KEY_S) == GLFW_PRESS) {
       cameraPos -= 2.5f * delta * cameraFront;
     }
@@ -185,12 +192,16 @@ int main() {
     if (glfwGetKey(Window::GetInstance().GetWindow(), GLFW_KEY_D) == GLFW_PRESS) {
       cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 2.5f * delta;
     }
+    if (glfwGetKey(Window::GetInstance().GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS) {
+      cameraPos.y += 0.8f * delta;
+    }
+    if (glfwGetKey(Window::GetInstance().GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+      cameraPos.y -= 0.8f * delta;
+    }
     projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
-    unsigned int modelm = glGetUniformLocation(Prg, "model");
     unsigned int viewm = glGetUniformLocation(Prg, "view");
     unsigned int projectm = glGetUniformLocation(Prg, "projection");
-    glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(viewm, 1, GL_FALSE, &view[0][0]);
     glUniformMatrix4fv(projectm, 1, GL_FALSE, &projection[0][0]);
 
@@ -200,7 +211,13 @@ int main() {
     glBindTexture(GL_TEXTURE_2D, texture);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    for (unsigned int i = 0; i < 5; i++) {
+      unsigned int modelm = glGetUniformLocation(Prg, "model");
+      std::cout << i << std::endl;
+      model = glm::translate(model, cubepos[i]);
+      glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
     if (glfwGetKey( Window::GetInstance().GetWindow() , GLFW_KEY_ESCAPE) == GLFW_PRESS) {
       break;
     }
