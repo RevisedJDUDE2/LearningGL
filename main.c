@@ -4,38 +4,29 @@
 
 //My headers
 #include "Buffer.h"
+#include "vao.h"
+#include "Window.h"
 
 int main() {
-  if (!glfwInit()) {
-    printf("Failed to initialize glfw");
-    glfwTerminate();
-    return -1;
-  }
-
-  GLFWwindow* Window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
-  glfwMakeContextCurrent(Window);
-  if (glewInit() != GLEW_OK) {
-    printf("Glew init failure");
-    glfwTerminate();
-    return -1;
-  }
-
-  const unsigned char* VERSION = glGetString(GL_VERSION);
-  printf("Version: %s\n", VERSION);
+  Window_Initialize_GLFW();
+  Window_t winparams = { .width = 800, .height = 600, .title = "OpenGL" };
+  Window_Create(&winparams);
+  glfwMakeContextCurrent(Window_GetHandle(&winparams));
+  Window_initialize_GLEW();
 
   float Vertices[9] = {
     -0.5f, -0.5f, 0.0f,
      0.0f, 0.5f, 0.0f,
      0.5f, -0.5f, 0.0f
   };
-  GLuint VAO;
-  glGenVertexArrays(1, &VAO);
+  VertexArrayObject_t VAO;
+  VAO_SetStruct(&VAO, 1);
   Buffer_t VBO;
   Buffer_SetStruct(&VBO, 1, sizeof(Vertices), Vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   Buffer_Init(&VBO);
-  glBindVertexArray(VAO);
-
+  VAO_Bind(&VAO);
   Buffer_CreateBuffer(&VBO);
+
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
@@ -43,12 +34,13 @@ int main() {
   Buffer_Unbind(&VBO);
 
   glBindVertexArray(0);
+  VAO_Unbind(&VAO);
 
-  while (!glfwWindowShouldClose(Window)) {
+  while (!glfwWindowShouldClose(Window_GetHandle(&winparams))) {
     glClear(GL_COLOR_BUFFER_BIT);
-    glBindVertexArray(VAO);
+    VAO_Bind(&VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
-    glfwSwapBuffers(Window);
+    glfwSwapBuffers(Window_GetHandle(&winparams));
     glfwPollEvents();
   }
   glfwTerminate();

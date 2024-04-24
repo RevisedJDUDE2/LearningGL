@@ -132,6 +132,8 @@
   <ItemGroup>
     <ClCompile Include="Buffer.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="vao.c" />
+    <ClCompile Include="Window.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug\shader.frag" />
@@ -139,6 +141,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="vao.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

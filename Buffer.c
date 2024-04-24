@@ -3,7 +3,7 @@
 #include <memory.h>
 
 void Buffer_CreateBuffer(Buffer_t* buff) {
-  glBindBuffer(buff->target, buff->handle);
+  glBindBuffer(buff->target, buff->id);
   glBufferData(buff->target, buff->size, buff->data, buff->usage);
   printf("Count = %u\n", buff->count);
 }
@@ -13,7 +13,7 @@ void Buffer_Unbind(Buffer_t* buff) {
 }
 
 void Buffer_Init(Buffer_t* buff) {
-  glGenBuffers(buff->count, &buff->handle);
+  glGenBuffers(buff->count, &buff->id);
 }
 
 void Buffer_SetStruct(Buffer_t* buff, GLsizei count, GLsizeiptr size, GLvoid* data, GLenum usage, GLenum target) {
@@ -23,5 +23,5 @@ void Buffer_SetStruct(Buffer_t* buff, GLsizei count, GLsizeiptr size, GLvoid* da
 }
 
 void Buffer_Bind(Buffer_t* buff) {
-  glBindBuffer(buff->target, buff->handle);
+  glBindBuffer(buff->target, buff->id);
 }

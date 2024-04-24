@@ -5,7 +5,7 @@
 #include <glfw/glfw3.h>
 
 typedef struct Buffer {
-  GLuint handle;
+  GLuint id;
   GLenum target;
   GLsizeiptr size;
   GLvoid* data;
