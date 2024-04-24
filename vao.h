@@ -6,8 +6,8 @@
 #include <vec2.h>
 
 typedef struct Vertices {
-  vec3 position;
-  vec2 color;
+  vec3 position[3];
+  vec3 color;
 } Vertices_t;
 
 
@@ -21,4 +21,6 @@ void VAO_Init(VertexArrayObject_t* VAO);
 void VAO_Bind(VertexArrayObject_t* VAO);
 void VAO_Unbind(VertexArrayObject_t* VAO);
 
+void Vertices_Set(int index, Vertices_t* where, vec3 what);
+void Vertices_AttributePointer(int index, int count, int stride, int offset);
 #endif

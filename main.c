@@ -13,23 +13,27 @@ int main() {
   Window_Create(&winparams);
   glfwMakeContextCurrent(Window_GetHandle(&winparams));
   Window_initialize_GLEW();
+  glEnableVertexAttribArray(0);
 
-  float Vertices[9] = {
+  float Vertsices[9] = {
     -0.5f, -0.5f, 0.0f,
      0.0f, 0.5f, 0.0f,
      0.5f, -0.5f, 0.0f
   };
+  Vertices_t triangle = {
+    .position[0] = {-0.5f, -0.5f, 0.0f},
+    .position[1] = {0.0f, 0.5f, 0.0f},
+    .position[2] = {0.5f, -0.5f, 0.0f}
+  };
   VertexArrayObject_t VAO;
   VAO_SetStruct(&VAO, 1);
   Buffer_t VBO;
-  Buffer_SetStruct(&VBO, 1, sizeof(Vertices), Vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  Buffer_SetStruct(&VBO, 1, sizeof(triangle.position), triangle.position, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   Buffer_Init(&VBO);
   VAO_Bind(&VAO);
   Buffer_CreateBuffer(&VBO);
 
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(0);
+  Vertices_AttributePointer(0, 3, 3 * sizeof(float), 0);
 
   Buffer_Unbind(&VBO);
 
