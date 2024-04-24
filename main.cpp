@@ -16,11 +16,20 @@
 #include "Window.h"
 #include "stb/stb_image.h"
 
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 void viewport_resize(GLFWwindow*, int w, int h);
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+bool firstMouse = true;
+float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float pitch = 0.0f;
+float lastX = 800.0f / 2.0;
+float lastY = 600.0 / 2.0;
+float fov = 90.0f;
 
 int main() {
   Shader refVertex = {};
@@ -35,6 +44,10 @@ int main() {
   Window::GetInstance().CreateWindow();
   glfwMakeContextCurrent(Window::GetInstance().GetWindow());
   glfwSetFramebufferSizeCallback(Window::GetInstance().GetWindow(), viewport_resize);
+  glfwSetCursorPosCallback(Window::GetInstance().GetWindow(), mouse_callback);
+  glfwSetScrollCallback(Window::GetInstance().GetWindow(), scroll_callback);
+
+  glfwSetInputMode(Window::GetInstance().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
   InitGLEW();
 
   GLuint Vertex = refVertex.CreateShader(GL_VERTEX_SHADER, VertexshdrSource);
@@ -110,10 +123,44 @@ int main() {
 
   glm::vec3 cubepos[] = {
     glm::vec3(0.0f, 0.0f, 0.0f),
+    glm::vec3(1.0f, -1.0f, 0.0f),
+    glm::vec3(1.0f, 0.0f, 0.0f),
     glm::vec3(1.0f, 0.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f),
-    glm::vec3(1.0f, -2.0f, 0.0f)
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    //u
+    glm::vec3(2.0f, -4.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(1, -2.0f, 0.0f), 
+    glm::vec3(1.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    //d
+    glm::vec3(3.0f, -2.0f, 0.0f),
+    glm::vec3(-1.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(1.0f, 0.0f, 0.0f),
+    glm::vec3(1.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, -1.0f, 0.0f),
+    glm::vec3(0.0f, -1.0f, 0.0f),
+    glm::vec3(0.0f, 3.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    //e
+    glm::vec3(2.0f, -4.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f),
+    glm::vec3(1.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, -4.0f, 0.0f),
+    glm::vec3(0.0f, 2.0f, 0.0f),
+    glm::vec3(1.0f, 2.0f, 0.0f),
+    glm::vec3(0.0f, -2.0f, 0.0f),
+    glm::vec3(0.0f, -2.0f, 0.0f),
   };
 
   VertexArray VAO;
@@ -164,7 +211,7 @@ int main() {
   glEnable(GL_DEPTH_TEST);
   while (!glfwWindowShouldClose(Window::GetInstance().GetWindow())) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.0f, 0.6f, 1.0f, 1.0f);
+    glClearColor(0.1f, 0.5f, 1.0f, 1.0f);
 
 
     glm::mat4 transform = glm::mat4(1.0f);
@@ -211,7 +258,7 @@ int main() {
     glBindTexture(GL_TEXTURE_2D, texture);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    for (unsigned int i = 0; i < 5; i++) {
+    for (unsigned int i = 0; i < sizeof(cubepos)/sizeof(glm::vec3); i++) {
       unsigned int modelm = glGetUniformLocation(Prg, "model");
       std::cout << i << std::endl;
       model = glm::translate(model, cubepos[i]);
@@ -232,4 +279,50 @@ int main() {
 
 void viewport_resize(GLFWwindow* window, int w, int h) {
   glViewport(0, 0, w, h);
+}
+
+void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+{
+  float xpos = static_cast<float>(xposIn);
+  float ypos = static_cast<float>(yposIn);
+
+  if (firstMouse)
+  {
+    lastX = xpos;
+    lastY = ypos;
+    firstMouse = false;
+  }
+
+  float xoffset = xpos - lastX;
+  float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+  lastX = xpos;
+  lastY = ypos;
+
+  float sensitivity = 0.01f; // change this value to your liking
+  xoffset *= sensitivity;
+  yoffset *= sensitivity;
+
+  yaw += xoffset;
+  pitch += yoffset;
+
+  // make sure that when pitch is out of bounds, screen doesn't get flipped
+  if (pitch > 89.0f)
+    pitch = 89.0f;
+  if (pitch < -89.0f)
+    pitch = -89.0f;
+
+  glm::vec3 front;
+  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+  front.y = sin(glm::radians(pitch));
+  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+  cameraFront = glm::normalize(front);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+  fov -= (float)yoffset;
+  if (fov < 1.0f)
+    fov = 1.0f;
+  if (fov > 45.0f)
+    fov = 45.0f;
 }
