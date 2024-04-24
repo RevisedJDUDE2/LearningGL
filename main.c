@@ -12,10 +12,6 @@ int main() {
     return -1;
   }
 
-  //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
   GLFWwindow* Window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
   glfwMakeContextCurrent(Window);
   if (glewInit() != GLEW_OK) {
