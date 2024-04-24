@@ -76,13 +76,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\Music\glew-2.2.0-win32\glew-2.2.0\include;C:\Users\User\Music\glfw-3.4.bin.WIN32\glfw-3.4.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\Music\cglm-0.9.4\cglm-0.9.4\include\cglm;C:\Users\User\Music\glew-2.2.0-win32\glew-2.2.0\include;C:\Users\User\Music\glfw-3.4.bin.WIN32\glfw-3.4.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\User\Music\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;C:\Users\User\Music\glfw-3.4.bin.WIN32\glfw-3.4.bin.WIN32\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\User\Music\JudesCodesFolder\OpenGL\glfw-3.3.8\glfw-3.3.8\build\Debug;C:\Users\User\Music\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;C:\Users\User\Music\glfw-3.4.bin.WIN32\glfw-3.4.bin.WIN32\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cglm.lib;opengl32.lib;glew32s.lib;glfw3.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
