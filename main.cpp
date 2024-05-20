@@ -43,7 +43,7 @@ int main() {
   InitGLFW();
   Window::GetInstance().CreateWindow();
   glfwMakeContextCurrent(Window::GetInstance().GetWindow());
-  glfwSetFramebufferSizeCallback(Window::GetInstance().GetWindow(), viewport_resize);
+  //glfwSetFramebufferSizeCallback(Window::GetInstance().GetWindow(), viewport_resize);
   glfwSetCursorPosCallback(Window::GetInstance().GetWindow(), mouse_callback);
   glfwSetScrollCallback(Window::GetInstance().GetWindow(), scroll_callback);
 
@@ -71,47 +71,47 @@ int main() {
   refFragment.DeleteShader();
 
   float Vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f, 
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
 
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
 
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,  1.0f
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
   };
 
   unsigned int Indices[] = {
@@ -134,7 +134,7 @@ int main() {
     glm::vec3(2.0f, -4.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f),
-    glm::vec3(1, -2.0f, 0.0f), 
+    glm::vec3(1, -2.0f, 0.0f),
     glm::vec3(1.0f, 0.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f),
@@ -170,9 +170,9 @@ int main() {
   VertexBuffer VBO(sizeof(Vertices), &Vertices);
   EBO.Setup(sizeof(Indices), Indices);
   //                                              sizeof(Vertex)
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
   glEnableVertexAttribArray(1);
   //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(6 * sizeof(float)));
   //glEnableVertexAttribArray(2);
@@ -183,7 +183,7 @@ int main() {
 
   int ImgW, ImgH, numColCh;
   stbi_set_flip_vertically_on_load(true);
-  unsigned char* bytes = stbi_load("./img.jpg", &ImgW, &ImgH, &numColCh, 0);
+  unsigned char* bytes = stbi_load("dirt.jpg", &ImgW, &ImgH, &numColCh, 0);
 
   GLuint texture;
   glGenTextures(1, &texture);
@@ -191,12 +191,12 @@ int main() {
   glBindTexture(GL_TEXTURE_2D, texture);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ImgW, ImgH, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ImgW, ImgH, 0, GL_RGB, GL_UNSIGNED_BYTE, bytes);
   glGenerateMipmap(GL_TEXTURE_2D);
 
   stbi_image_free(bytes);
@@ -209,10 +209,11 @@ int main() {
   currenttime = (float)glfwGetTime();
 
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_MULTISAMPLE);
   while (!glfwWindowShouldClose(Window::GetInstance().GetWindow())) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.1f, 0.5f, 1.0f, 1.0f);
-
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     glm::mat4 transform = glm::mat4(1.0f);
     float newtile = (float)glfwGetTime();
@@ -245,7 +246,10 @@ int main() {
     if (glfwGetKey(Window::GetInstance().GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
       cameraPos.y -= 0.8f * delta;
     }
-    projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    int width, height;
+    glfwGetWindowSize(Window::GetInstance().GetWindow(), &width, &height);
+    glViewport(0, 0, width, height);
+    projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
     unsigned int viewm = glGetUniformLocation(Prg, "view");
     unsigned int projectm = glGetUniformLocation(Prg, "projection");
@@ -258,17 +262,52 @@ int main() {
     glBindTexture(GL_TEXTURE_2D, texture);
     VAO.Bind();
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    for (unsigned int i = 0; i < sizeof(cubepos)/sizeof(glm::vec3); i++) {
+    for (unsigned int i = 0; i < sizeof(cubepos) / sizeof(glm::vec3); i++) {
       unsigned int modelm = glGetUniformLocation(Prg, "model");
-      std::cout << i << std::endl;
+      //std::cout << i << std::endl;
       model = glm::translate(model, cubepos[i]);
+      glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
+    }
+
+    unsigned int modelm = glGetUniformLocation(Prg, "model");
+    for (float x = 0.0f; x < 4.0f; x += 0.5f) {
+      model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
+      glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
+      std::cout << "x: " << x << std::endl;
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
+    for (float z = 0.0f; z < 4.0f; z += 0.5f) {
+      model = glm::translate(model, glm::vec3(0.0f, 0.0f, 1.0f));
       glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
       glDrawArrays(GL_TRIANGLES, 0, 36);
     }
-    if (glfwGetKey( Window::GetInstance().GetWindow() , GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+
+    for (float y = 4.0f; y > 0.0f; y -= 0.5f) {
+      model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+      glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
+    for (float x = 4.0f; x > 0.0f; x -= 0.5f) {
+      model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 0.0f));
+      glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
+    for (float z = 4.0f; z > 0.0f; z -= 0.5f) {
+      model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
+      glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
+
+    for (float y = 0.0f; y < 4.0f; y += 0.5f) {
+      model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
+      glUniformMatrix4fv(modelm, 1, GL_FALSE, glm::value_ptr(model));
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
+
+    if (glfwGetKey(Window::GetInstance().GetWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
       break;
     }
-    glfwSwapBuffers( Window::GetInstance().GetWindow() );
+    glfwSwapBuffers(Window::GetInstance().GetWindow());
     glfwPollEvents();
   }
   VAO.Unbind();
@@ -298,7 +337,7 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
   lastX = xpos;
   lastY = ypos;
 
-  float sensitivity = 0.01f; // change this value to your liking
+  float sensitivity = 0.06f; // change this value to your liking
   xoffset *= sensitivity;
   yoffset *= sensitivity;
 
